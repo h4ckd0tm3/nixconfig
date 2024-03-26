@@ -6,8 +6,17 @@
   ];
 
   programs = {
-    git.enable = true;
+    git = {
+      enable = true;
+      userName  = "h4ckd0tm3";
+      userEmail = "marcel@schnideritsch.at";
+      lfs.enable = true;
+    };
     starship = {
+      enable = true;
+      enableZshIntegration = true;
+    };
+    zoxide = {
       enable = true;
       enableZshIntegration = true;
     };
@@ -81,6 +90,15 @@
             fi
         }
 
+        alias n="nnn"
+        function nnn () {
+          command nnn "$@"
+
+          if [ -f "$NNN_TMPFILE" ]; then
+                  . "$NNN_TMPFILE"
+          fi
+        }
+
         function zen () {
           ~/.config/sketchybar/plugins/zen.sh $1
         }
@@ -88,7 +106,7 @@
         function suyabai () {
           SHA256=$(shasum -a 256 /opt/homebrew/bin/yabai | awk "{print \$1;}")
           if [ -f "/private/etc/sudoers.d/yabai" ]; then
-            sudo sed -i \'\' -e 's/sha256:[[:alnum:]]*/sha256:'\$\{SHA256}'/' /private/etc/sudoers.d/yabai
+            sudo sed -i ''\'''\' -e 's/sha256:[[:alnum:]]*/sha256:''\'''${SHA256}'/' /private/etc/sudoers.d/yabai
           else
             echo "sudoers file does not exist yet"
           fi
@@ -101,6 +119,21 @@
             sketchybar --trigger brew_update
           fi
         }
+
+        # Color Scheme
+        export BLACK=0xff181819
+        export WHITE=0xffe2e2e3
+        export RED=0xfffc5d7c
+        export GREEN=0xff9ed072
+        export BLUE=0xff76cce0
+        export YELLOW=0xffe7c664
+        export ORANGE=0xfff39660
+        export MAGENTA=0xffb39df3
+        export GREY=0xff7f8490
+        export TRANSPARENT=0x00000000
+        export BG0=0xff2c2e34
+        export BG1=0xff363944
+        export BG2=0xff414550
 
         export XDG_CONFIG_HOME="$HOME/.config"
         export VIRTUALENVWRAPPER_PYTHON=/opt/homebrew/bin/python3
@@ -118,11 +151,6 @@
 
         # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
         [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-        export PATH=$PATH:/Users/marcel.schnideritsch/.spicetify
-
-
-        source $HOMEBREW_PREFIX/opt/chruby/share/chruby/chruby.sh
-        source $HOMEBREW_PREFIX/opt/chruby/share/chruby/auto.sh
       '';
     };
     direnv.enable = true;
