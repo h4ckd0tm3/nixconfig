@@ -35,7 +35,7 @@
       flake = {
         # All home-manager configurations are kept here.
         homeModules.default = { pkgs, ... }: {
-          imports = [ ./home.nix ];
+          imports = [ ./modules/home.nix ];
         };
       };
     };
