@@ -172,12 +172,12 @@
         "cmd+t" = "launch --type=tab --cwd=current";
         "cmd+n" = "launch --type=os-window --cwd=current";
         # jump to beginning and end of word
-        "alt+left"  = "send_text all \x1b\x62";
-        "alt+right" = "send_text all \x1b\x66";
+        "alt+left"  = "send_text all \\x1b\\x62";
+        "alt+right" = "send_text all \\x1b\\x66";
 
         # jump to beginning and end of line
-        "cmd+left"  = "send_text all \x01";
-        "cmd+right" = "send_text all \x05";
+        "cmd+left"  = "send_text all \\x01";
+        "cmd+right" = "send_text all \\x05";
       };
       settings = {
         bold_font        = "Hack Nerd Font Mono Bold";
