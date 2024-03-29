@@ -4,7 +4,7 @@ let user = "marcel.schnideritsch"; in
 {
 
   imports = [
-    ../modules/home-manager.nix
+    ../../modules/home-manager.nix
   ];
 
   # Auto upgrade nix package and the daemon service.
