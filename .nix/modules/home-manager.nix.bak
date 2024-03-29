@@ -12,10 +12,6 @@
       userEmail = "marcel@schnideritsch.at";
       lfs.enable = true;
     };
-    starship = {
-      enable = true;
-      enableZshIntegration = true;
-    };
     zoxide = {
       enable = true;
       enableZshIntegration = true;
@@ -57,9 +53,6 @@
 
         alias cat='bat --theme Dracula -p --paging=never'
         alias ssh="TERM=xterm-256color ssh"
-
-
-        command -v lsd &> /dev/null && alias ls='lsd --group-dirs first'
 
         function mkcd() {
                 mkdir -p "$1" && cd "$1"
@@ -151,6 +144,7 @@
 
         # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
         [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+         ${lib.getExe pkgs.any-nix-shell} zsh | source /dev/stdin
       '';
     };
     kitty = {
@@ -242,7 +236,19 @@
         inactive_tab_font_style normal
       '';
     };
-
-    direnv.enable = true;
+    lsd = {
+      enable = true;
+      enableAliases = true;
+      settings = {
+       "sorting" = {
+        "dir-grouping" = "first";
+       };
+      };
+    };
+    direnv = {
+      enable = true;
+      enableZshIntegration = true;
+      nix-direnv.enable = true;
+    };
   };
 }
