@@ -12,10 +12,6 @@
       userEmail = "marcel@schnideritsch.at";
       lfs.enable = true;
     };
-    starship = {
-      enable = true;
-      enableZshIntegration = true;
-    };
     zoxide = {
       enable = true;
       enableZshIntegration = true;
