@@ -24,10 +24,22 @@
     homebrew-cask = {
       url = "github:homebrew/homebrew-cask";
       flake = false;
-    }; 
+    };
+    homebrew-cask-fonts = {
+      url = "github:homebrew/homebrew-cask-fonts";
+      flake = false;
+    };
+    homebrew-fkratz = {
+      url = "github:FelixKratz/homebrew-formulae";
+      flake = false;
+    };
+    homebrew-koekeishiya = {
+      url = "github:koekeishiya/homebrew-formulae";
+      flake = false;
+    };
   };
 
-  outputs = inputs@{ self, darwin, nix-homebrew, homebrew-bundle, homebrew-core, homebrew-cask, home-manager, nixpkgs, flake-parts, nixos-flake, ...}:
+  outputs = inputs@{ self, darwin, nix-homebrew, homebrew-bundle, homebrew-core, homebrew-cask, homebrew-cask-fonts, homebrew-fkratz, homebrew-koekeishiya, home-manager, nixpkgs, flake-parts, nixos-flake, ...}:
     let
       user = "marcel.schnideritsch";
       darwinSystems = [ "aarch64-darwin" "x86_64-darwin" ];
@@ -49,8 +61,11 @@
                   "homebrew/homebrew-core" = homebrew-core;
                   "homebrew/homebrew-cask" = homebrew-cask;
                   "homebrew/homebrew-bundle" = homebrew-bundle;
+                  "homebrew/homebrew-cask-fonts" = homebrew-cask-fonts;
+                  "FelixKratz/formulae" = homebrew-fkratz;
+                  "koekeishiya/formulae" = homebrew-koekeishiya;
                 };
-                mutableTaps = false;
+                mutableTaps = true;
                 autoMigrate = true;
               };
             }

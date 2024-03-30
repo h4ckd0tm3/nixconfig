@@ -126,6 +126,22 @@
         "type": "github"
       }
     },
+    "homebrew-cask-fonts": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1711587957,
+        "narHash": "sha256-j5BMLTxP/KXvKf1o4lgTbnsSeA9VtA70kx3hedhuigM=",
+        "owner": "homebrew",
+        "repo": "homebrew-cask-fonts",
+        "rev": "a29849816ed1f0982a0ce2b513c29fded0139756",
+        "type": "github"
+      },
+      "original": {
+        "owner": "homebrew",
+        "repo": "homebrew-cask-fonts",
+        "type": "github"
+      }
+    },
     "homebrew-core": {
       "flake": false,
       "locked": {
@@ -139,6 +155,38 @@
       "original": {
         "owner": "homebrew",
         "repo": "homebrew-core",
+        "type": "github"
+      }
+    },
+    "homebrew-fkratz": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1710407834,
+        "narHash": "sha256-nFfpcreYCqE/jCzY0mNeO+ZArUF9oMasG1r+R019MI4=",
+        "owner": "FelixKratz",
+        "repo": "homebrew-formulae",
+        "rev": "135452bb73f5fee5b31ca726b9eecdedb5f6492e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "FelixKratz",
+        "repo": "homebrew-formulae",
+        "type": "github"
+      }
+    },
+    "homebrew-koekeishiya": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1711121905,
+        "narHash": "sha256-49PiizO724aOnrqj54jmgeXqXRd9irX685aB+hJWYnA=",
+        "owner": "koekeishiya",
+        "repo": "homebrew-formulae",
+        "rev": "b1f53ad5afd5139e9d5684cdeefef368822d671c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "koekeishiya",
+        "repo": "homebrew-formulae",
         "type": "github"
       }
     },
@@ -266,7 +314,10 @@
         "home-manager": "home-manager",
         "homebrew-bundle": "homebrew-bundle",
         "homebrew-cask": "homebrew-cask",
+        "homebrew-cask-fonts": "homebrew-cask-fonts",
         "homebrew-core": "homebrew-core",
+        "homebrew-fkratz": "homebrew-fkratz",
+        "homebrew-koekeishiya": "homebrew-koekeishiya",
         "nix-homebrew": "nix-homebrew",
         "nixos-flake": "nixos-flake",
         "nixpkgs": "nixpkgs_3"
