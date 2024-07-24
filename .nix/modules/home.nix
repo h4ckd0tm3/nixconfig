@@ -30,21 +30,73 @@
             file = "share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
           }
       ];
-      oh-my-zsh = {
+      history = {
+        share = true;
+        size = 5000;
+        ignoreDups = true;
+        ignoreAllDups = true;
+        ignoreSpace = true;
+      };
+      historySubstringSearch = {
         enable = true;
-        plugins = [
-          "git"
-          "z"
-        ];
-        extraConfig = ''
-          ENABLE_CORRECTION="true"
-        '';
+      };
+      autosuggestion = {
+        enable = true;
+      };
+      syntaxHighlighting = {
+        enable = true;
       };
       initExtra = ''
+        # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+        # Initialization code that may require console input (password prompts, [y/n]
+        # confirmations, etc.) must go above this block; everything else may go below.
+        if [[ -r "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh" ]]; then
+          source "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh"
+        fi
+
+        if [[ -f "/opt/homebrew/bin/brew" ]] then
+          # If you're using macOS, you'll want this enabled
+          eval "$(/opt/homebrew/bin/brew shellenv)"
+        fi
+
+        if [ -d "/opt/homebrew/opt/ruby/bin" ]; then
+          export PATH=/opt/homebrew/opt/ruby/bin:$PATH
+          export PATH=`gem environment gemdir`/bin:$PATH
+        fi
+
+        # Set the directory we want to store zinit and plugins
+        ZINIT_HOME="''${XDG_DATA_HOME:-''${HOME}/.local/share}/zinit/zinit.git"
+
+        # Download Zinit, if it's not there yet
+        if [ ! -d "$ZINIT_HOME" ]; then
+          mkdir -p "$(dirname $ZINIT_HOME)"
+          git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
+        fi
+
+        # Source/Load zinit
+        source "''${ZINIT_HOME}/zinit.zsh"
+
+        # Add in snippets
+        zinit snippet OMZP::git
+        zinit snippet OMZP::sudo
+        zinit snippet OMZP::command-not-found
+
+        # Load completions
+        autoload -Uz compinit && compinit
+
+        zinit cdreplay -q
+
+        # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+        [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+        # Aliases
         alias nani='echo "\033[0;31mOmae wa mou shindeiru" && sleep 1.5s && nano'
         alias c='clear'
         alias fuck='sudo $(fc -ln -1)'
         alias x='exit'
+        alias n='nnn'
+        alias l='ls -lah'
+        alias ll='ls -l'
 
         alias grep='grep --color=auto'
         alias fgrep='fgrep --color=auto'
@@ -54,9 +106,9 @@
         alias cat='bat --theme Dracula -p --paging=never'
         alias ssh="TERM=xterm-256color ssh"
 
-
         command -v lsd &> /dev/null && alias ls='lsd --group-dirs first'
 
+        # functions
         function mkcd() {
                 mkdir -p "$1" && cd "$1"
         }
@@ -86,17 +138,12 @@
             fi
         }
 
-        alias n="nnn"
         function nnn () {
           command nnn "$@"
 
           if [ -f "$NNN_TMPFILE" ]; then
                   . "$NNN_TMPFILE"
           fi
-        }
-
-        function zen () {
-          ~/.config/sketchybar/plugins/zen.sh $1
         }
 
         function suyabai () {
@@ -115,6 +162,12 @@
             sketchybar --trigger brew_update
           fi
         }
+
+        zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
+        zstyle ':completion:*' list-colors "''${(s.:.)LS_COLORS}"
+        zstyle ':completion:*' menu no
+        zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
+        zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
 
         # Color Scheme
         export BLACK=0xff1F2229
@@ -135,7 +188,7 @@
         export VIRTUALENVWRAPPER_PYTHON=/opt/homebrew/bin/python3
         export WORKON_HOME=$HOME/.virtualenvs
         export PROJECT_HOME=$HOME/Devel
-        source /opt/homebrew/bin/virtualenvwrapper.sh
+        source /opt/homebrew/bin/virtualenvwrapper_lazy.sh
 
         export LESS_TERMCAP_mb=$'\e[1;32m'
         export LESS_TERMCAP_md=$'\e[1;32m'
@@ -144,9 +197,6 @@
         export LESS_TERMCAP_so=$'\e[01;33m'
         export LESS_TERMCAP_ue=$'\e[0m'
         export LESS_TERMCAP_us=$'\e[1;4;31m'
-
-        # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-        [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
       '';
     };
     kitty = {
